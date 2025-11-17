@@ -1,0 +1,19 @@
+ORG 0H
+	 SETB P3.3             ; MAKE P3.3 INPUT
+	 BACK: 
+	 AGAIN:JB P3.3,AGAIN   ; WAIT FOR SWITCH GOES LOW
+	 CLR P0.0              ; TURN ON LED FOR 1 SEC
+	 ACALL QSDELAY
+	 SETB P0.0             ; TURN OFF LED
+	 SJMP BACK
+		
+		
+    QSDELAY :              ; 1 SEC DELAY
+	MOV R5,#8
+	H3: MOV R4,#240
+	H2: MOV R3,#240
+	H1: DJNZ R3,H1
+	DJNZ R4,H2
+	DJNZ R5,H3
+	RET
+	END
